@@ -11,9 +11,15 @@
                 <div class="form-group">
                     {!! Form::label('level', 'メッセージ:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('level', '値段:') !!}
+                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('level', '商品URL:') !!}
+                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('level', 'メモ:') !!}
+                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('投稿', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('新規登録する', ['class' => 'btn btn-primary']) !!}
 
             {!! Form::close() !!}
         </div>

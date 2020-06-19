@@ -7,15 +7,13 @@
     @if (count($levels) > 0)
     
         <table class="table table-striped">
-                        {{-- タブ --}}
-            @include('levels.navtabs')
             <thead>
                 <tr>
                     <th>商品</th>
                     <th>値段</th>
                     <th>登録日</th>
-                    <th></th>
-                    <th></th>
+                    <th>商品リンク</th>
+                    <th>購入の有無</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,8 +23,8 @@
                     <td>{!! link_to_route('levels.show', $level->id, ['level' => $level->id]) !!}</td>
                     <td>{{ $level->level }}</td>
                     <td>{{ $level->level }}</td>
-                    <td>欲しい！</td>
-                    <td>いらない</td>
+                    <td>楽天</td>
+                    <td>購入した</td>
                 </tr>
                 @endforeach
             </tbody>

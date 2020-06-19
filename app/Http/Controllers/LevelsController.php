@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Level;    
+use App\Level;  
 
 class LevelsController extends Controller
 {
@@ -13,15 +12,52 @@ class LevelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-  public function index()
+     public function index()
     {
-        // メッセージ一覧を取得
-        $levels = Level::all();
+        $data = [];
+        if (\Auth::check()) { 
+            $user = \Auth::user();
+            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
 
-        // メッセージ一覧ビューでそれを表示
-        return view('levels.index', [
-            'levels' => $levels,
-        ]);
+            $data = [
+                'user' => $user,
+                'levels' => $levels,
+            ];
+        }
+        
+        return view('levels.index', $data);
+    }     
+    
+    public function second()
+    {
+        $data = [];
+        if (\Auth::check()) { 
+            $user = \Auth::user();
+            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'levels' => $levels,
+            ];
+        }
+        
+        return view('levels.second', $data);
+    }     
+    
+    public function third()
+    {
+        $data = [];
+        if (\Auth::check()) { 
+            $user = \Auth::user();
+            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'levels' => $levels,
+            ];
+        }
+        
+        return view('levels.third', $data);
     }
 
     /**
@@ -29,16 +65,14 @@ class LevelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     public function create()
     {
         $level = new Level;
 
-        // メッセージ作成ビューを表示
         return view('levels.create', [
             'level' => $level,
         ]);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -46,14 +80,15 @@ class LevelsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        // メッセージを作成
+                // バリデーション
+
         $level = new Level;
+        $level->user_id = \Auth::id(); 
         $level->level = $request->level;
         $level->save();
 
-        // トップページへリダイレクトさせる
         return redirect('/');
     }
 
@@ -63,16 +98,17 @@ class LevelsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+     public function show($id)
     {
-        // idの値でメッセージを検索して取得
         $level = Level::findOrFail($id);
-
-        // メッセージ詳細ビューでそれを表示
+         if (\Auth::id() === $level->user_id){
         return view('levels.show', [
             'level' => $level,
-        ]);
+        ]);}
+         return redirect('/');
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -82,13 +118,12 @@ class LevelsController extends Controller
      */
     public function edit($id)
     {
-        // idの値でメッセージを検索して取得
         $level = Level::findOrFail($id);
-
-        // メッセージ編集ビューでそれを表示
+ if (\Auth::id() === $level->user_id){
         return view('levels.edit', [
             'level' => $level,
-        ]);
+        ]);}
+         return redirect('/');
     }
 
     /**
@@ -100,12 +135,13 @@ class LevelsController extends Controller
      */
     public function update(Request $request, $id)
     {
+         
         // idの値でメッセージを検索して取得
         $level = Level::findOrFail($id);
         // メッセージを更新
+        $level->user_id = \Auth::id(); 
         $level->level = $request->level;
         $level->save();
-
         // トップページへリダイレクトさせる
         return redirect('/');
     }
@@ -116,14 +152,20 @@ class LevelsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+     public function destroy($id)
     {
         // idの値でメッセージを検索して取得
+
         $level = Level::findOrFail($id);
+    
         // メッセージを削除
-        $level->delete();
+        if (\Auth::id() === $level->user_id) {
+                    $level->delete();
+        }
+
 
         // トップページへリダイレクトさせる
         return redirect('/');
+        
     }
 }
