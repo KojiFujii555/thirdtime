@@ -23,7 +23,9 @@
     </li>
     {{-- 購入ページ --}}
     <li class="nav-item">
+        <a href="{{ route('levels.buy', ['user' => $user->id]) }}" class="nav-link {{ Request::routeIs('levels.buy') ? 'active' : '' }}">
             購入ページ
+        </a>
     </li>
 
 </ul>

@@ -58,6 +58,21 @@ class LevelsController extends Controller
         }
         
         return view('levels.third', $data);
+    }   
+    public function buy()
+    {
+        $data = [];
+        if (\Auth::check()) { 
+            $user = \Auth::user();
+            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
+
+            $data = [
+                'user' => $user,
+                'levels' => $levels,
+            ];
+        }
+        
+        return view('levels.buy', $data);
     }
 
     /**

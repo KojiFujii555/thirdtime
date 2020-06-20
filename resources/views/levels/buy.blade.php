@@ -7,6 +7,8 @@
     @if (count($levels) > 0)
     
         <table class="table table-striped">
+            {{-- タブ --}}
+            @include('levels.navtabs')
             <thead>
                 <tr>
                     <th>商品</th>
