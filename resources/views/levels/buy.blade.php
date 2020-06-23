@@ -3,6 +3,7 @@
 @section('level')
  @if (Auth::check())
     <h1>{{ Auth::user()->name }}さんの欲しいもの</h1>
+    
 
     @if (count($levels) > 0)
     
@@ -26,7 +27,12 @@
                     <td>{{ $level->level }}</td>
                     <td>{{ $level->level }}</td>
                     <td>楽天</td>
-                    <td>購入した</td>
+                    <td>
+                        {{-- メッセージ削除フォーム --}}
+                        {!! Form::model($level, ['route' => ['levels.destroy', $level->id], 'method' => 'delete']) !!}
+                        {!! Form::submit('購入した', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

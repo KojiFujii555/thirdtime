@@ -14,8 +14,8 @@
                     <th>商品</th>
                     <th>値段</th>
                     <th>登録日</th>
-                    <th></th>
-                    <th></th>
+                    <th>欲しいボタン</th>
+                    <th>いらないボタン</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,12 @@
                     <td>{{ $level->level }}</td>
                     <td>{{ $level->level }}</td>
                     <td>欲しい！</td>
-                    <td>いらない</td>
+                　　<td>
+                        {{-- メッセージ削除フォーム --}}
+                        {!! Form::model($level, ['route' => ['levels.destroy', $level->id], 'method' => 'delete']) !!}
+                        {!! Form::submit('いらない', ['class' => 'btn btn-danger']) !!}
+                        {!! Form::close() !!}
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

@@ -82,10 +82,11 @@ class LevelsController extends Controller
      */
      public function create()
     {
+        $user = \Auth::user();
         $level = new Level;
-
         return view('levels.create', [
             'level' => $level,
+            'user' => $user,
         ]);
     }
 

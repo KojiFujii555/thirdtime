@@ -1,7 +1,9 @@
 <ul class="nav nav-tabs nav-justified mb-3">
     {{-- 新規登録タブ --}}
     <li class="nav-item">
-            新規登録
+     <a href="{{ route('levels.create', ['user' => $user->id]) }}" class="nav-link {{ Request::routeIs('levels.create') ? 'active' : '' }}">
+           新規登録
+     </a>
      </li>
     {{-- 1回目タブ --}}
     <li class="nav-item">
