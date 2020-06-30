@@ -2,16 +2,18 @@
 
 @section('level')
 
-    <h1>メッセージ新規作成ページ</h1>
+    <h1>新規登録</h1>
 
-    <div class="row">
-  
-        <div class="col-12">
-                          {{-- タブ --}}
+    <div class="col-12">
+      {{-- タブ --}}
             @include('levels.navtabs')
-            {!! Form::model($level, ['route' => 'levels.store']) !!}
+  
+        <div class="col-12 row">
+         
+            <div class="col-6">
+                     {!! Form::model($level, ['route' => 'levels.store']) !!}
                 <div class="form-group">
-                    {!! Form::label('level', 'メッセージ:') !!}
+                    {!! Form::label('level', '商品名:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
                     {!! Form::label('level', '値段:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
@@ -20,11 +22,13 @@
                     {!! Form::label('level', 'メモ:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
                 </div>
-
-                {!! Form::submit('新規登録する', ['class' => 'btn btn-primary']) !!}
-
-            {!! Form::close() !!}
-        </div>       
-     
+                {!! Form::submit('新規登録する', ['class' => 'btn btn-primary']) !!}            
+             {!! Form::close() !!}
+            </div>     
+            <div class='col-6'>
+                  {{-- 楽天api --}}
+            @include('levels.rakuten')
+            </div>
+     </div>
     </div>
 @endsection

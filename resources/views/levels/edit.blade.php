@@ -10,7 +10,7 @@
             {!! Form::model($level, ['route' => ['levels.update', $level->id], 'method' => 'put']) !!}
 
                 <div class="form-group">
-                    {!! Form::label('level', 'メッセージ:') !!}
+                    {!! Form::label('level', '商品名:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
                 </div>
 

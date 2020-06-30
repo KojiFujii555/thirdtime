@@ -84,9 +84,23 @@ class LevelsController extends Controller
     {
         $user = \Auth::user();
         $level = new Level;
+        $response = '';
+        $keyword = '';
+        $url = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706';
+        $params = [
+        'format' => 'json',
+        'applicationId' => '1084521773457364307',
+        'hits' => 15,
+        'imageFlag' => 1
+    ];
+        
         return view('levels.create', [
             'level' => $level,
             'user' => $user,
+            'response' => $response, 
+            'keyword' => $keyword,
+            'url' => $url,
+            'params' => $params,
         ]);
     }
 
@@ -117,9 +131,12 @@ class LevelsController extends Controller
      public function show($id)
     {
         $level = Level::findOrFail($id);
+        $user = \Auth::user();
+
          if (\Auth::id() === $level->user_id){
         return view('levels.show', [
             'level' => $level,
+            'user' => $user,
         ]);}
          return redirect('/');
     }
@@ -182,6 +199,63 @@ class LevelsController extends Controller
 
         // トップページへリダイレクトさせる
         return redirect('/');
-        
+    }     
+    public function move12($id)
+    {
+        // idの値でメッセージを検索して取得
+
+        $level = Level::findOrFail($id);
+    
+        // メッセージを削除
+        if (\Auth::id() === $level->user_id) {
+                    $level->delete();
+        }
+
+
+        // トップページへリダイレクトさせる
+        return redirect('/');
+    }   
+    
+    
+    
+    
+    public function rakuten(Request $request) 
+    {
+
+
+    // 検索する！のボタンが押された場合の処理
+    if (array_key_exists('keyword', $request)) {
+        $keyword ->keyword = $request->keyword;
+        $this -> execute_api($url, $params, $keyword);
+        $response = json_decode($this);  // JSONデータをオブジェクトにする
+    }
+    
+    $user = \Auth::user();
+        $level = new Level;
+        $response = '';
+        $keyword = '';
+        $url = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706';
+        $params = [
+        'format' => 'json',
+        'applicationId' => '1084521773457364307',
+        'hits' => 15,
+        'imageFlag' => 1
+    ];
+        return view('levels.create', [
+            'level' => $level,
+            'user' => $user,
+            'response' => $response, 
+            'keyword' => $keyword,
+            'url' => $url,
+            'params' => $params,
+        ]);
+              
+    }
+ 
+            // Web APIを実行する
+        public function execute_api($url, $params, $keyword) {
+        $query = http_build_query($params, "", "&");
+        $search_url = $url . '?' . $query . '&keyword=' . $keyword;
+        return file_get_contents($search_url);
     }
 }

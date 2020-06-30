@@ -4,8 +4,7 @@
  @if (Auth::check())
     <h1>{{ Auth::user()->name }}さんの欲しいもの</h1>
 
-    @if (count($levels) > 0)
-    
+
         <table class="table table-striped">
             {{-- タブ --}}
             @include('levels.navtabs')
@@ -36,7 +35,6 @@
                 @endforeach
             </tbody>
         </table>
-    @endif
 
     <!--{{-- メッセージ作成ページへのリンク --}}-->
     <!--{!! link_to_route('levels.create', '欲しいもの新規登録', [], ['class' => 'btn btn-primary']) !!}-->
