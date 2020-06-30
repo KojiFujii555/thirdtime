@@ -222,13 +222,6 @@ class LevelsController extends Controller
     public function rakuten(Request $request) 
     {
 
-
-    // 検索する！のボタンが押された場合の処理
-    if (array_key_exists('keyword', $request)) {
-        $keyword ->keyword = $request->keyword;
-        $this -> execute_api($url, $params, $keyword);
-        $response = json_decode($this);  // JSONデータをオブジェクトにする
-    }
     
     $user = \Auth::user();
         $level = new Level;
@@ -241,6 +234,13 @@ class LevelsController extends Controller
         'hits' => 15,
         'imageFlag' => 1
     ];
+        // 検索する！のボタンが押された場合の処理
+    if ($request->keyword) {
+        $keyword = $request->keyword;
+        $excute = $this -> execute_api($url, $params, $keyword);
+        $response = json_decode($excute);  // JSONデータをオブジェクトにする
+    }
+    
         return view('levels.create', [
             'level' => $level,
             'user' => $user,
@@ -249,9 +249,8 @@ class LevelsController extends Controller
             'url' => $url,
             'params' => $params,
         ]);
-              
     }
- 
+
             // Web APIを実行する
         public function execute_api($url, $params, $keyword) {
         $query = http_build_query($params, "", "&");

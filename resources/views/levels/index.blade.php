@@ -24,12 +24,9 @@
                     <td>{!! link_to_route('levels.show', $level->id, ['level' => $level->id]) !!}</td>
                     <td>{{ $level->level }}</td>
                     <td>{{ $level->level }}</td>
+                    <td>欲しい
+                    </td>                   
                     <td>
-                        {{-- メッセージ移動フォーム --}}
-                        {!! Form::model($level, ['route' => ['levels.destroy', $level->id], 'method' => 'delete']) !!}
-                        {!! Form::submit('欲しい！', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
-                    </td>                    <td>
                         {{-- メッセージ削除フォーム --}}
                         {!! Form::model($level, ['route' => ['levels.destroy', $level->id], 'method' => 'delete']) !!}
                         {!! Form::submit('いらない', ['class' => 'btn btn-danger']) !!}

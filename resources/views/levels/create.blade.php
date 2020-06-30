@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('level')
-
+<body>
     <h1>新規登録</h1>
 
     <div class="col-12">
@@ -14,9 +14,9 @@
                      {!! Form::model($level, ['route' => 'levels.store']) !!}
                 <div class="form-group">
                     {!! Form::label('level', '商品名:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('level', null, ['class' => 'form-control product']) !!}
                     {!! Form::label('level', '値段:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('level', null, ['class' => 'form-control price']) !!}
                     {!! Form::label('level', '商品URL:') !!}
                     {!! Form::text('level', null, ['class' => 'form-control']) !!}
                     {!! Form::label('level', 'メモ:') !!}
@@ -31,4 +31,7 @@
             </div>
      </div>
     </div>
+ <script src="{{ secure_asset('js/main.js') }}"></script>
+
+</body>
 @endsection

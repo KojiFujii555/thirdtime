@@ -17,8 +17,7 @@ Route::get('third', 'LevelsController@third')->name('levels.third');
 Route::get('buy', 'LevelsController@buy')->name('levels.buy');
 Route::resource('levels', 'LevelsController');
 
-
-Route::post('/second','LevelsController@move12')>name('levels.move12');
+Route::post('rakuten', 'LevelsController@rakuten')->name('levels.rakuten');
 
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup.get');
 Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
