@@ -10,7 +10,7 @@
             @include('levels.navtabs')
             <thead>
                 <tr>
-                    <th>商品</th>
+                    <th>商品名</th>
                     <th>値段</th>
                     <th>登録日</th>
                     <th>欲しいボタン</th>
@@ -20,10 +20,9 @@
             <tbody>
                 @foreach ($levels as $level)
                 <tr>
-                    {{-- メッセージ詳細ページへのリンク --}}
-                    <td>{!! link_to_route('levels.show', $level->id, ['level' => $level->id]) !!}</td>
-                    <td>{{ $level->level }}</td>
-                    <td>{{ $level->level }}</td>
+                    <td>{!! link_to_route('levels.show', $level->name, ['level' => $level->name]) !!}</td>
+                    <td>{{ $level->price }}</td>
+                    <td>{{ $level->register }}</td>
                     <td>欲しい
                     </td>                   
                     <td>

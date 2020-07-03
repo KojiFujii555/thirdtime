@@ -13,14 +13,29 @@
             <div class="col-6">
                      {!! Form::model($level, ['route' => 'levels.store']) !!}
                 <div class="form-group">
-                    {!! Form::label('level', '商品名:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control product']) !!}
-                    {!! Form::label('level', '値段:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control price']) !!}
-                    {!! Form::label('level', '商品URL:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::label('form_product', '商品名:') !!}
+                    {!! Form::text('name', null, [
+                     'class' => 'form-control product',
+                     'id' => 'form_product'
+                    ]) !!}                   
+                    {!! Form::label('form_price', '値段:') !!}
+                    {!! Form::text('price', null, [
+                     'class' => 'form-control price',
+                     'id' => 'form_price'
+                    ]) !!}
+                    {!! Form::label('form_url', '商品URL:') !!}
+                    {!! Form::text('url', null, [
+                     'class' => 'form-control',
+                     'id' => 'form_url'
+                    ]) !!}
+                    {!! Form::label('form_date', '日付:') !!}
+                     {!! Form::date('register', \Carbon\Carbon::now(), [
+                     'class' => 'form-control',
+                     'id' => 'form_date'
+                     ]) !!}
+                    
                     {!! Form::label('level', 'メモ:') !!}
-                    {!! Form::text('level', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('memo', null, ['class' => 'form-control']) !!}
                 </div>
                 {!! Form::submit('新規登録する', ['class' => 'btn btn-primary']) !!}            
              {!! Form::close() !!}

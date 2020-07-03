@@ -111,13 +111,16 @@ class LevelsController extends Controller
      * @return \Illuminate\Http\Response
      */
    public function store(Request $request)
-    {
-                // バリデーション
-
+    {       
         $level = new Level;
-        $level->user_id = \Auth::id(); 
-        $level->level = $request->level;
-        $level->save();
+        $level -> user_id = \Auth::id();
+        $level->level = 0;
+        $level->price = $request->price; 
+        $level->name = $request->name; 
+        $level->url = $request->url; 
+        $level->memo = $request->memo; 
+        $level->register = $request->register; 
+        $level->save();  
 
         return redirect('/');
     }
