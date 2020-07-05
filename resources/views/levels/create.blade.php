@@ -15,12 +15,12 @@
                 <div class="form-group">
                     {!! Form::label('form_product', '商品名:') !!}
                     {!! Form::text('name', null, [
-                     'class' => 'form-control product',
+                     'class' => 'form-control',
                      'id' => 'form_product'
                     ]) !!}                   
                     {!! Form::label('form_price', '値段:') !!}
                     {!! Form::text('price', null, [
-                     'class' => 'form-control price',
+                     'class' => 'form-control',
                      'id' => 'form_price'
                     ]) !!}
                     {!! Form::label('form_url', '商品URL:') !!}

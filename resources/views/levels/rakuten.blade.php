@@ -43,15 +43,15 @@
                                             <img src="{{ $item->Item->smallImageUrls[0]->imageUrl }}">
                                         </td>
                                         <td>
-                                            <a id='product' href="{{ $item->Item->itemUrl }}" target="_blank">
+                                            <a class="product" href="{{ $item->Item->itemUrl }}" target="_blank">
                                              {{ $item->Item->itemName }}
                                             </a>
                                         </td>
                                         <td>
-                                           <p id="price">¥{{ number_format($item->Item->itemPrice) }} </p>  
+                                           <p class="price">¥{{ number_format($item->Item->itemPrice) }} </p>  
                                         </td>          
                                         <td>
-                                            <input id="want_btn" type="button" value="欲しい"></input>
+                                            <input class="want_btn" type="button" value="欲しい"></input>
                                         </td>
                                     </tr>
                                 @endforeach
