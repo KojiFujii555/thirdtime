@@ -17,7 +17,7 @@ class AddColumnToLevelsTable extends Migration
             $table->string('price');
             $table->string('name');
             $table->string('url');
-            $table->string('memo');
+            $table->string('memo')->nullable();
             $table->string('register');
         });
     }

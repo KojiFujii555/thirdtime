@@ -18,7 +18,6 @@ class LevelsController extends Controller
         if (\Auth::check()) { 
             $user = \Auth::user();
             $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
-
             $data = [
                 'user' => $user,
                 'levels' => $levels,
@@ -27,10 +26,11 @@ class LevelsController extends Controller
         
         return view('levels.index', $data);
     }     
+        
     
     public function second()
     {
-        $data = [];
+      $data = [];
         if (\Auth::check()) { 
             $user = \Auth::user();
             $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
@@ -42,7 +42,7 @@ class LevelsController extends Controller
         }
         
         return view('levels.second', $data);
-    }     
+}        
     
     public function third()
     {
@@ -59,6 +59,7 @@ class LevelsController extends Controller
         
         return view('levels.third', $data);
     }   
+    
     public function buy()
     {
         $data = [];
@@ -112,6 +113,15 @@ class LevelsController extends Controller
      */
    public function store(Request $request)
     {       
+        
+        // バリデーション
+        $request->validate([
+            'price' => 'required|max:255',
+            'name' => 'required|max:255',
+            'register' => 'required|max:255',
+            'url' => 'required',
+        ]);
+        
         $level = new Level;
         $level -> user_id = \Auth::id();
         $level->level = 0;
@@ -122,7 +132,7 @@ class LevelsController extends Controller
         $level->register = $request->register; 
         $level->save();  
 
-        return redirect('/');
+        return redirect('/levels');
     }
 
     /**
@@ -141,7 +151,7 @@ class LevelsController extends Controller
             'level' => $level,
             'user' => $user,
         ]);}
-         return redirect('/');
+        return redirect('/levels');
     }
 
 
@@ -155,7 +165,7 @@ class LevelsController extends Controller
     public function edit($id)
     {
         $level = Level::findOrFail($id);
- if (\Auth::id() === $level->user_id){
+        if (\Auth::id() === $level->user_id){
         return view('levels.edit', [
             'level' => $level,
         ]);}
@@ -174,13 +184,15 @@ class LevelsController extends Controller
          
         // idの値でメッセージを検索して取得
         $level = Level::findOrFail($id);
-        // メッセージを更新
-        $level->user_id = \Auth::id(); 
-        $level->level = $request->level;
+        $level->level = $level->level + 1;
         $level->save();
         // トップページへリダイレクトさせる
-        return redirect('/');
-    }
+        return redirect('/levels/create');
+    }    
+
+    
+    
+
 
     /**
      * Remove the specified resource from storage.
@@ -201,31 +213,14 @@ class LevelsController extends Controller
 
 
         // トップページへリダイレクトさせる
-        return redirect('/');
+        return redirect('/levels/create');
     }     
-    public function move12($id)
-    {
-        // idの値でメッセージを検索して取得
-
-        $level = Level::findOrFail($id);
-    
-        // メッセージを削除
-        if (\Auth::id() === $level->user_id) {
-                    $level->delete();
-        }
-
-
-        // トップページへリダイレクトさせる
-        return redirect('/');
-    }   
-    
-    
-    
     
     public function rakuten(Request $request) 
     {
+        
 
-    
+        
     $user = \Auth::user();
         $level = new Level;
         $response = '';
@@ -234,7 +229,7 @@ class LevelsController extends Controller
         $params = [
         'format' => 'json',
         'applicationId' => '1084521773457364307',
-        'hits' => 15,
+        'hits' => 5,
         'imageFlag' => 1
     ];
         // 検索する！のボタンが押された場合の処理

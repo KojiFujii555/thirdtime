@@ -10,28 +10,35 @@
             @include('levels.navtabs')
             <thead>
                 <tr>
-                    <th>商品</th>
+                    <th>商品名</th>
                     <th>値段</th>
                     <th>登録日</th>
                     <th>欲しいボタン</th>
                     <th>いらないボタン</th>
                 </tr>
             </thead>
-            <tbody>
+<tbody>
                 @foreach ($levels as $level)
+                @if ($level->level === '2')
                 <tr>
-                    {{-- メッセージ詳細ページへのリンク --}}
-                    <td>{!! link_to_route('levels.show', $level->id, ['level' => $level->id]) !!}</td>
-                    <td>{{ $level->level }}</td>
-                    <td>{{ $level->level }}</td>
-                    <td>欲しい！</td>
-                　　<td>
+                        {{-- メッセージ詳細ページへのリンク --}}
+                    <td>{!! link_to_route('levels.show', $level->name, ['level' => $level->id]) !!}</td>
+                    <td>{{ $level->price }}</td>
+                    <td>{{ $level->register }}</td>
+                    <td>
+                        {{-- レベル昇格フォーム --}}
+                        {!! Form::model($level, ['route' => ['levels.update', $level->id],'method' => 'put']) !!}
+                        {!! Form::submit('欲しい', ['class' => 'btn btn-success']) !!}
+                        {!! Form::close() !!}
+                    </td>                   
+                    <td>
                         {{-- メッセージ削除フォーム --}}
                         {!! Form::model($level, ['route' => ['levels.destroy', $level->id], 'method' => 'delete']) !!}
                         {!! Form::submit('いらない', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>

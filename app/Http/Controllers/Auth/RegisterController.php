@@ -70,4 +70,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    
+        public function redirectPath()
+    {
+        return 'levels/create';
+        //例）return 'costs/index';
+    }
+
 }

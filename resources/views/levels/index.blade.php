@@ -17,13 +17,19 @@
                     <th>いらないボタン</th>
                 </tr>
             </thead>
-            <tbody>
+          <tbody>
                 @foreach ($levels as $level)
+                @if ($level->level === '0')
                 <tr>
-                    <td>{!! link_to_route('levels.show', $level->name, ['level' => $level->name]) !!}</td>
+                        {{-- メッセージ詳細ページへのリンク --}}
+                    <td>{!! link_to_route('levels.show', $level->name, ['level' => $level->id]) !!}</td>
                     <td>{{ $level->price }}</td>
                     <td>{{ $level->register }}</td>
-                    <td>欲しい
+                    <td>
+                        {{-- レベル昇格フォーム --}}
+                        {!! Form::model($level, ['route' => ['levels.update', $level->id],'method' => 'put']) !!}
+                        {!! Form::submit('欲しい', ['class' => 'btn btn-success']) !!}
+                        {!! Form::close() !!}
                     </td>                   
                     <td>
                         {{-- メッセージ削除フォーム --}}
@@ -32,6 +38,7 @@
                         {!! Form::close() !!}
                     </td>
                 </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>

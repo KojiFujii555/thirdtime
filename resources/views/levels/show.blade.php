@@ -4,7 +4,7 @@
  @if (\Auth::check())
 
 
-    <h1>id = {{ $level->id }} のメッセージ詳細ページ</h1>
+    <h1>{{ $level->name }}の詳細ページ</h1>
          {{-- タブ --}}
             @include('levels.navtabs')
 
@@ -23,6 +23,9 @@
                     <td>{{ $level->price }}</td>
                     <td>{{ $level->register }}</td>
                 </tr>
+                <tr>
+                    <th>メモ</th>
+                </tr>                
                 <tr>
                     <td>{{ $level->memo }}</td>
                 </tr>

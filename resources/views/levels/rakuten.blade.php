@@ -15,7 +15,7 @@
                     {!! Form::label('keyword', '検索キーワード') !!}
                     {!! Form::text('keyword', null, ['class' => 'form-control']) !!}
                 </div>
-                {!! Form::submit('検索する', ['class' => 'btn btn-danger']) !!}
+                {!! Form::submit('検索する', ['class' => 'btn btn-success']) !!}
             　　{!! Form::close() !!}
         　　　　       
                 </div>
@@ -26,7 +26,7 @@
             @if ($response && $response->hits > 0)
                 <div class="row">
                     <div class="col-12">
-                        <h2>検索結果一覧</h2>
+                        <h2>検索結果</h2>
                         <table class="table table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -38,17 +38,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($response->Items as $item)
-                     <tr>
+                                     <tr>
                                         <td class="text-center">
-                                            <img src='<?php print htmlspecialchars($item->Item->smallImageUrls[0]->imageUrl, ENT_QUOTES, "UTF-8"); ?>' />
+                                            <img src="{{ $item->Item->smallImageUrls[0]->imageUrl }}">
                                         </td>
                                         <td>
-                                            <a id='product' href="<?php print htmlspecialchars($item->Item->itemUrl, ENT_QUOTES, "UTF-8"); ?>" target="_blank">
-                                             <?php print htmlspecialchars($item->Item->itemName, ENT_QUOTES, "UTF-8"); ?> 
+                                            <a id='product' href="{{ $item->Item->itemUrl }}" target="_blank">
+                                             {{ $item->Item->itemName }}
                                             </a>
                                         </td>
                                         <td>
-                                           <p id="price"> &yen;<?php print htmlspecialchars(number_format($item->Item->itemPrice), ENT_QUOTES, "UTF-8"); ?></p>  
+                                           <p id="price">¥{{ number_format($item->Item->itemPrice) }} </p>  
                                         </td>          
                                         <td>
                                             <input id="want_btn" type="button" value="欲しい"></input>
@@ -66,7 +66,6 @@
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
         <script src="{{ secure_asset('js/main.js') }}"></script>
         </body>
