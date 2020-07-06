@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('level')
+ @if (Auth::check())
+
 <body>
     <h1>新規登録</h1>
 
@@ -48,4 +50,18 @@
     </div>
 
 </body>
+@else
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Third Time</h1>
+                <p>衝動買いを防止して、賢く節約</p>
+                {{-- ユーザ登録ページへのリンク --}}
+                {!! link_to_route('signup.get', '新規登録', [], ['class' => 'btn btn-lg btn-primary']) !!}
+                {{-- ログインページへのリンク --}}
+                {!! link_to_route('login', 'ログイン', [],['class' => 'btn btn-lg btn-primary']) !!}
+
+            </div>
+        </div>
+    @endif
 @endsection
+

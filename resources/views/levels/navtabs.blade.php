@@ -1,3 +1,4 @@
+
 <ul class="nav nav-tabs nav-justified mb-3">
     {{-- 新規登録タブ --}}
     <li class="nav-item">
@@ -31,3 +32,5 @@
     </li>
 
 </ul>
+
+

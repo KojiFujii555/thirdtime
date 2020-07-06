@@ -1,9 +1,10 @@
 <html>
+     @if (Auth::check())
+
   <head>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 　</head>
 　<body>
-
         <div class="container">
             <h2>欲しいもの検索</h2>
 
@@ -64,8 +65,24 @@
             @endif
         </div>
 
+
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script defer src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
         <script src="{{ secure_asset('js/main.js') }}"></script>
         </body>
+        @else
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>Third Time</h1>
+                <p>衝動買いを防止して、賢く節約</p>
+                {{-- ユーザ登録ページへのリンク --}}
+                {!! link_to_route('signup.get', '新規登録', [], ['class' => 'btn btn-lg btn-primary']) !!}
+                {{-- ログインページへのリンク --}}
+                {!! link_to_route('login', 'ログイン', [],['class' => 'btn btn-lg btn-primary']) !!}
+
+            </div>
+        </div>
+    @endif
+
+    </html>
