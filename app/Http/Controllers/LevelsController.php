@@ -12,8 +12,8 @@ class LevelsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
-    {
+     
+    public function level_up(){
         $data = [];
         if (\Auth::check()) { 
             $user = \Auth::user();
@@ -23,56 +23,31 @@ class LevelsController extends Controller
                 'levels' => $levels,
             ];
         }
-        
-        return view('levels.index', $data);
+        return $data;
+     }
+
+     public function index()
+    {
+        $data = $this -> level_up();
+        return view('levels.index',$data);
     }     
         
     
     public function second()
     {
-      $data = [];
-        if (\Auth::check()) { 
-            $user = \Auth::user();
-            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'levels' => $levels,
-            ];
-        }
-        
+        $data = $this -> level_up();
         return view('levels.second', $data);
-}        
+    }        
     
     public function third()
     {
-        $data = [];
-        if (\Auth::check()) { 
-            $user = \Auth::user();
-            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'levels' => $levels,
-            ];
-        }
-        
+        $data = $this -> level_up();
         return view('levels.third', $data);
     }   
     
     public function buy()
     {
-        $data = [];
-        if (\Auth::check()) { 
-            $user = \Auth::user();
-            $levels = $user->levels()->orderBy('created_at', 'desc')->paginate(10);
-
-            $data = [
-                'user' => $user,
-                'levels' => $levels,
-            ];
-        }
-        
+       $data = $this -> level_up();
         return view('levels.buy', $data);
     }
 
@@ -218,9 +193,10 @@ class LevelsController extends Controller
     
     public function rakuten(Request $request) 
     {
-        
+        $request->validate([
+        'keyword' => 'min:2',
+        ]);
 
-        
     $user = \Auth::user();
         $level = new Level;
         $response = '';
@@ -232,13 +208,14 @@ class LevelsController extends Controller
         'hits' => 5,
         'imageFlag' => 1
     ];
+
         // 検索する！のボタンが押された場合の処理
     if ($request->keyword) {
+
         $keyword = $request->keyword;
         $excute = $this -> execute_api($url, $params, $keyword);
         $response = json_decode($excute);  // JSONデータをオブジェクトにする
     }
-    
         return view('levels.create', [
             'level' => $level,
             'user' => $user,
@@ -253,6 +230,7 @@ class LevelsController extends Controller
         public function execute_api($url, $params, $keyword) {
         $query = http_build_query($params, "", "&");
         $search_url = $url . '?' . $query . '&keyword=' . $keyword;
+
         return file_get_contents($search_url);
     }
 }
